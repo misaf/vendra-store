@@ -6,4 +6,5 @@ return [
     'store_created' => 'Store created',
     'store_limit_reached' => 'Store limit reached',
     'domain_replaced' => 'Domain replaced',
+    'url_copied' => 'URL copied',
 ];
