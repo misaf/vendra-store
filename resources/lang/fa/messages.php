@@ -6,5 +6,4 @@ return [
     'store_created' => 'ملک ایجاد شد',
     'store_limit_reached' => 'محدودیت تعداد املاک',
     'domain_replaced' => 'دامنه جایگزین شد',
-    'url_copied' => 'URL کپی شد',
 ];
