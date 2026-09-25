@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Misaf\VendraStore\Support;
 
 use Illuminate\Support\Arr;
+use Misaf\VendraSupport\Capabilities\CurrencyIntegration;
 
 /**
  * A test asserts every mapped field still exists in the Filament schema.
@@ -33,10 +34,14 @@ final class StorefrontConfigurationMap
         'storefront_instagram_username' => 'social.instagramUsername',
     ];
 
-    /** @var list<string> */
+    /**
+     * The store names its storefront through the admin's per-locale `storefront_name` instead,
+     * and its price currency follows the store's default currency.
+     *
+     * @var list<string>
+     */
     public const array EDITABLE_FIELDS = [
-        'storefront_name_en', 'storefront_name_fa', 'storefront_price_currency', 'storefront_og_image',
-        'storefront_locality', 'storefront_country', 'storefront_mobile_phone', 'storefront_office_phone',
+        'storefront_og_image', 'storefront_locality', 'storefront_country', 'storefront_mobile_phone', 'storefront_office_phone',
         'storefront_contact_email', 'storefront_hours_open', 'storefront_hours_close',
         'storefront_map_query', 'storefront_whatsapp_phone', 'storefront_telegram_username',
         'storefront_instagram_username',
@@ -47,19 +52,23 @@ final class StorefrontConfigurationMap
      */
     private const array UPPERCASED = ['storefront_price_currency', 'storefront_country'];
 
-    /** @return array<string, string> */
-    public static function sampleForm(string $storeName, string $administratorEmail): array
+    /**
+     * The contact email is a placeholder on the store's own domain, since the storefront publishes it.
+     *
+     * @return array<string, string>
+     */
+    public static function sampleForm(string $storeName, string $contactEmail): array
     {
         return [
             'storefront_name_en' => $storeName,
             'storefront_name_fa' => $storeName,
             'storefront_business_type' => 'Florist',
-            'storefront_price_currency' => 'IRR',
+            'storefront_price_currency' => CurrencyIntegration::defaultCode(),
             'storefront_locality' => 'Tehran',
             'storefront_country' => 'IR',
             'storefront_mobile_phone' => '00000000000',
             'storefront_office_phone' => '00000000000',
-            'storefront_contact_email' => $administratorEmail,
+            'storefront_contact_email' => $contactEmail,
             'storefront_hours_open' => '08:00',
             'storefront_hours_close' => '21:00',
             'storefront_map_query' => '35.7,51.4',
@@ -113,6 +122,22 @@ final class StorefrontConfigurationMap
      */
     public static function updateEditable(array $configuration, array $form): array
     {
+        $names = Arr::get($form, 'storefront_name');
+        $names = is_array($names) ? array_filter(
+            $names,
+            fn (mixed $name, mixed $locale): bool => is_string($locale) && is_string($name) && mb_trim($name) !== '',
+            ARRAY_FILTER_USE_BOTH,
+        ) : [];
+
+        // The store's names replace the deployed ones, so a removed language stops being published.
+        if ($names !== []) {
+            $configuration['name'] = $names;
+        }
+
+        if (filled(Arr::get($form, 'storefront_price_currency', null))) {
+            $configuration['priceCurrency'] = self::value($form, 'storefront_price_currency');
+        }
+
         foreach (self::EDITABLE_FIELDS as $field) {
             if (! array_key_exists($field, $form)) {
                 continue;

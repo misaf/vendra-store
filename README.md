@@ -243,8 +243,13 @@ runs outside the managed container runtime.
 When a managed storefront is requested, creation only requires its image and
 slug. Sample contact, location, and social details complete the configuration,
 so provisioning starts immediately when the runtime is configured. The tenant
-administrator replaces the samples in Admin General Settings; later changes
-redeploy the storefront.
+administrator replaces the samples on the admin Storefront settings page; later changes
+redeploy the storefront. That page also holds the store's name and description, one
+per active language chosen with the header locale switcher, and sends the names
+as the storefront's `name`, replacing the deployed names, so a language the
+store removed stops being published. The storefront's price currency is the
+store's default currency, synced on save and whenever that default changes. The contact, location, and social
+tabs appear only while the store has a managed storefront.
 
 Status is written only through the model's `markProcessing()`, `markReady()`,
 `markRequested()` and `markFailed()`, which enforce the

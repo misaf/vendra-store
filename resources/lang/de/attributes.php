@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 return [
     'storefront_configuration' => 'Floristen-Shop',
+    'storefront_contact' => 'Kontakt',
+    'storefront_location_and_social' => 'Standort und Social Media',
     'storefront_configuration_description' => 'Build und Bereitstellung des objektspezifischen Shops konfigurieren.',
     'storefront_sample_description' => 'Neue Shops starten mit Beispieldaten. Ersetzen Sie die Kontakt-, Standort- und Social-Media-Daten durch Ihre eigenen.',
     'create_storefront' => 'Floristen-Shop erstellen',
@@ -13,7 +15,6 @@ return [
     'storefront_image_hint' => 'Wählen Sie einen freigegebenen Storefront-Build.',
     'storefront_name_en' => 'Englischer Shopname',
     'storefront_name_fa' => 'Persischer Shopname',
-    'storefront_price_currency' => 'Währung',
     'storefront_og_image' => 'Social-Share-Bild',
     'storefront_og_image_hint' => 'Optionaler relativer Pfad, z. B. /images/og.webp.',
     'storefront_locality' => 'Ort',

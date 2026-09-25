@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 return [
     'storefront_configuration' => 'فروشگاه گل‌فروشی',
+    'storefront_contact' => 'تماس',
+    'storefront_location_and_social' => 'مکان و شبکه‌های اجتماعی',
     'storefront_configuration_description' => 'پیکربندی ساخت و استقرار فروشگاه اختصاصی ملک.',
     'storefront_sample_description' => 'فروشگاه‌های جدید با اطلاعات نمونه ساخته می‌شوند. اطلاعات تماس، مکان و شبکه‌های اجتماعی را با اطلاعات خود جایگزین کنید.',
     'create_storefront' => 'ایجاد فروشگاه گل‌فروشی',
@@ -13,7 +15,6 @@ return [
     'storefront_image_hint' => 'یک نسخه تأییدشده فروشگاه را انتخاب کنید.',
     'storefront_name_en' => 'نام انگلیسی فروشگاه',
     'storefront_name_fa' => 'نام فارسی فروشگاه',
-    'storefront_price_currency' => 'واحد پول',
     'storefront_og_image' => 'تصویر اشتراک‌گذاری',
     'storefront_og_image_hint' => 'مسیر نسبی اختیاری، مانند /images/og.webp.',
     'storefront_locality' => 'شهر',
